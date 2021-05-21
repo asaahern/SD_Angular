@@ -1,0 +1,112 @@
+<mat-card class="card">
+    <h2>Usuario Actual</h2>
+    <p>{{ usuario.nombre }} {{ usuario.apellido }}</p>
+</mat-card>
+
+<mat-card class="card">
+    <form (submit)=" registrarUsuario() ">
+        <h2>Formulario del usuario</h2>
+
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" 
+              #name="ngModel"
+              [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="usuario.nombre" 
+              [ngClass]="{'is-valid': !name.valid, 'is-invalid': name.invalid}"
+              placeholder="Nombre (min. 3 letras)"
+              name="name" 
+              minlength="3">
+            <div class="invalid-feedback" *ngIf="name.invalid">
+                <div *ngIf="name.errors.minlength">Introduzca un nombre con 3 caracteres mínimo</div>
+            </div>
+        </mat-form-field>
+
+
+        <mat-form-field>
+            <mat-label>Apellido/s</mat-label>
+            <input matInput type="text"
+            #surname="ngModel"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]=" usuario.apellido "
+            [ngClass]="{'is-valid': !surname.valid, 'is-invalid': surname.invalid}"
+            matInput placeholder="Apellido (min. 3 letras)"
+            minlength="3">
+            <div class="invalid-feedback" *ngIf="surname.invalid">
+                <div *ngIf="surname.errors.minlength">Introduzca un apellido con 3 caracteres mínimo</div>
+            </div>
+        </mat-form-field>
+       
+        <mat-form-field>
+            <mat-label>Edad</mat-label>
+            <input matInput type="number"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]=" usuario.edad "
+            matInput placeholder="Edad (0 - 125)">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>DNI</mat-label>
+            <input matInput type="text"
+            #dni="ngModel"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]=" usuario.DNI "
+            [ngClass]="{'is-valid': !dni.valid, 'is-invalid': dni.invalid}"
+            matInput placeholder="DNI (8 números y 1 letra)"
+            pattern="^[0-9]{8}[A-Za-z]{1}"
+            minlength="9" maxlength="9">
+            <div class="invalid-feedback" *ngIf="dni.invalid">
+                <div *ngIf="dni.errors.pattern">Introduzca 8 caracteres numéricos y una letra</div>	
+            </div>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Cumpleanos</mat-label>
+            <input type="date"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]=" usuario.cumpleanos "
+            matInput placeholder="Cumpleanos">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Color</mat-label>
+            <input 
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]=" usuario.colorFavorito "
+            matInput placeholder="Color favorito"
+            minlength="3">
+        </mat-form-field>
+
+        <div>
+          <mat-radio-group aria-label="Sexo" [ngModelOptions]="{standalone: true}" [(ngModel)]=" usuario.sexo ">
+            <mat-radio-button class="radiobutton" value="Hombre">Hombre</mat-radio-button>
+            <mat-radio-button class="radiobutton" value="Mujer">Mujer</mat-radio-button>
+            <mat-radio-button class="radiobutton" value="Otro">Otro</mat-radio-button>
+            <mat-radio-button class="radiobutton" value="No especificado">No especificado</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        
+        <p></p>
+        <button mat-flat-button color="primary" type="submit">Registrar</button>
+    </form>
+</mat-card>
+
+
+<mat-card class="card">
+    <h2>Lista de usuarios</h2>
+    <ul>
+        <li *ngFor=" let cadaUsuario of listaUsuarios; let i = index ">
+            <h3>{{ cadaUsuario.nombre }} {{ cadaUsuario.apellido }}</h3>
+            
+            <p>Edad: {{cadaUsuario.edad}}</p>
+            <p>DNI: {{cadaUsuario.DNI}}</p>
+            <p>Cumpleaños: {{cadaUsuario.cumpleanos | date: 'dd/MM/yyyy'}}</p>
+            <p>Color favorito: {{cadaUsuario.colorFavorito}}</p>
+            <p>Género: {{cadaUsuario.sexo}}</p>
+            
+
+            <button mat-flat-button color="primary" (click)="actualizar( i )">Actualizar</button>
+            <button mat-flat-button color="warn" (click)="eliminar( i )">Eliminar</button>
+        </li>
+    </ul>
+</mat-card>
