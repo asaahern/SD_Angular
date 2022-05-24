@@ -1,4 +1,6 @@
-# NombreApp
+# SD_Angular
+Samsung Desarrolladoras course, module 3, exercise 7: Angular
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
 
